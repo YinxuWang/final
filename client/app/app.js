@@ -7,6 +7,8 @@ import ngResource from 'angular-resource';
 import ngSanitize from 'angular-sanitize';
 
 import uiRouter from 'angular-ui-router';
+import uiBootstrap from 'angular-ui-bootstrap';
+import 'angular-ui-grid/ui-grid.js';
 
 // import ngMessages from 'angular-messages';
 // import ngValidationMatch from 'angular-validation-match';
@@ -26,7 +28,7 @@ import util from '../components/util/util.module';
 import './app.scss';
 
 angular.module('app', [ngCookies, ngResource, ngSanitize, uiRouter, _Auth, admin,
-  navbar, footer, constants, util
+  navbar, footer, constants, util, uiBootstrap, 'ui.grid', 'ui.grid.pagination'
 ])
   .config(routeConfig)
   .run(function ($rootScope, $location, Auth) {
@@ -36,7 +38,7 @@ angular.module('app', [ngCookies, ngResource, ngSanitize, uiRouter, _Auth, admin
     $rootScope.$on('$stateChangeStart', function (event, next) {
       Auth.isLoggedIn(function (loggedIn) {
         if (next.authenticate && !loggedIn) {
-          $location.path('/login');
+          $location.path('/admin/login');
         }
       });
     });

@@ -1,0 +1,54 @@
+<div class="m-admin-company">
+  <!--search section-->
+  <section class="row">
+    <div class="col-md-12 form-horizontal form-group">
+      <label for="_companyName" class="control-label fl">公司名称:</label>
+      <div class="col-md-2">
+        <input id="_companyName" type="text" class="form-control" value="" ng-model="vm.searchParams.companyName"/>
+      </div>
+      <label for="_reviewStatus" class="control-label fl">审核状态:</label>
+      <div class="col-md-2">
+        <select id="_reviewStatus" class="form-control" ng-model="vm.searchParams.reviewStatus">
+          <option value="">全部</option>
+          <option value="0">待审核</option>
+          <option value="1">审核通过</option>
+          <option value="2">驳回</option>
+        </select>
+      </div>
+      <div class="col-md-3 pr-5">
+        <label for="_dateRangeStart" class="control-label fl mr-3">申请时间:</label>
+        <div class="input-group">
+          <input type="text" class="form-control" uib-datepicker-popup="{{format1}}" ng-model="dt"
+                 is-open="vm.popup1.opened" datepicker-options="dateOptions" ng-required="true" close-text="关闭"
+                 alt-input-formats="altInputFormats" id="_dateRangeStart"/>
+          <span class="input-group-btn">
+            <button type="button" class="btn btn-default" ng-click="vm.open1()">
+              <i class="glyphicon glyphicon-calendar"></i>
+            </button>
+        </span>
+        </div>
+      </div>
+
+      <div class="col-md-3 pl-3">
+        <label for="_dateRangeEnd" class="control-label fl mr-5">--</label>
+        <div class="input-group">
+          <input type="text" class="form-control" uib-datepicker-popup="{{format2}}" ng-model="dt"
+                 is-open="vm.popup2.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close"
+                 alt-input-formats="altInputFormats" id="_dateRangeEnd"/>
+          <span class="input-group-btn">
+            <button type="button" class="btn btn-default" ng-click="vm.open2()">
+              <i class="glyphicon glyphicon-calendar"></i>
+            </button>
+          </span>
+        </div>
+      </div>
+      <div class="btn btn-default pull-right">查找</div>
+    </div>
+  </section>
+  <!--grid section-->
+  <section class="row">
+    <div class="col-md-12">
+      <div ui-grid="vm.gridConfig" class="grid"></div>
+    </div>
+  </section>
+</div>

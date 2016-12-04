@@ -2,8 +2,8 @@
 
 export default class AdminLoginController {
   user = {
-    phone: '13333333333',
-    password: 'test'
+    phone: '13312341234',
+    password: 'test1'
   };
   errors = {
     login: undefined
@@ -27,14 +27,9 @@ export default class AdminLoginController {
         password: this.user.password
       })
         .then(() => {
-          console.log('success');
-          debugger;
-          // Logged in, redirect to home
-          this.$state.go('main');
+          this.$state.go('admin.company');
         })
         .catch(err => {
-          console.log('fail')
-          debugger;
           this.errors.login = err.message;
         });
     }

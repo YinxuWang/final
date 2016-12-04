@@ -9,7 +9,7 @@ import sqldb from './sqldb';
 import config from './config/environment';
 import http from 'http';
 
-// Populate databases with sample data
+// Populate databases
 if(config.seedDB) {
   require('./config/seed');
 }

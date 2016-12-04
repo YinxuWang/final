@@ -46,10 +46,9 @@ module.exports = function makeWebpackConfig(options) {
         'angular-aria',
         'angular-cookies',
         'angular-resource',
-
+        'angular-ui-bootstrap',
+        'angular-ui-grid',
         'angular-sanitize',
-
-
         'angular-ui-router',
         'lodash'
       ]

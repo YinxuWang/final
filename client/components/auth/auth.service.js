@@ -15,10 +15,11 @@ export function AuthService($location, $http, $cookies, $q, appConfig, Util, Use
   var safeCb = Util.safeCb;
   var currentUser = new _User();
   var userRoles = appConfig.userRoles || [];
+  const ROLE = appConfig.ROLE;
   /**
    * Check if userRole is >= role
    * @param {String} userRole - role of current user
-   * @param {String} role - role to check against
+   * @param {Number} role - role to check against
    */
   var hasRole = function(userRole, role) {
     return userRoles.indexOf(userRole) >= userRoles.indexOf(role);
@@ -127,7 +128,7 @@ export function AuthService($location, $http, $cookies, $q, appConfig, Util, Use
     /**
      * Check if a user has a specified role or higher
      *
-     * @param  {String}     role     - the role to check against
+     * @param  {Number}     role     - the role to check against
      * @param  {Function} [callback] - function(has)
      * @return {Promise}
      */
@@ -135,7 +136,6 @@ export function AuthService($location, $http, $cookies, $q, appConfig, Util, Use
       return Auth.getCurrentUser(undefined)
         .then(user => {
           let has = hasRole(_.get(user, 'role'), role);
-
           safeCb(callback)(has);
           return has;
         });
@@ -144,7 +144,7 @@ export function AuthService($location, $http, $cookies, $q, appConfig, Util, Use
     /**
      * Check if a user has a specified role or higher
      *
-     * @param  {String} role - the role to check against
+     * @param  {Number} role - the role to check against
      * @return {Bool}
      */
     hasRoleSync(role) {
@@ -159,7 +159,7 @@ export function AuthService($location, $http, $cookies, $q, appConfig, Util, Use
      * @return {Bool|Promise}
      */
     isAdmin() {
-      return Auth.hasRole(...[].concat.apply(['admin'], arguments));
+      return Auth.hasRole(...[].concat.apply([ROLE.ADMIN], arguments));
     },
 
     /**
@@ -168,7 +168,7 @@ export function AuthService($location, $http, $cookies, $q, appConfig, Util, Use
      * @return {Bool}
      */
     isAdminSync() {
-      return Auth.hasRoleSync('admin');
+      return Auth.hasRoleSync(ROLE.ADMIN);
     },
 
     /**

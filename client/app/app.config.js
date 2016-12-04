@@ -3,7 +3,7 @@
 export function routeConfig($urlRouterProvider, $locationProvider) {
   'ngInject';
 
-  $urlRouterProvider.otherwise('/');
+  $urlRouterProvider.otherwise('/admin');
 
   $locationProvider.html5Mode(true);
 }

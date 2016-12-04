@@ -1,7 +1,7 @@
-@import '~flat-ui/bootstrap/css/bootstrap.css';
-//@import '~flat-ui/css/flat-ui.css';
+@import '~bootstrap/dist/css/bootstrap.min.css';
 $fa-font-path: '/assets/fonts/font-awesome/';
 @import '~font-awesome/scss/font-awesome';
+@import '~angular-ui-grid/ui-grid.css';
 
 // @import url(http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,900|Roboto:300,500,700,900);
 
@@ -16,15 +16,15 @@ $fa-font-path: '/assets/fonts/font-awesome/';
   padding: 0.2em 0;
 }
 
-/* Responsive: Portrait tablets and up */
-@media screen and (min-width: 768px) {
-  .container {
-    max-width: 730px;
-  }
-}
 
 // Component styles are injected through gulp
 /* inject:scss */
+
+/*======== Global Styles Inject Here =====*/
+
+@import "style/index";
+
+/*======== Module Styles Inject Here =====*/
 @import "admin/login/login.scss";
 
 /* endinject */
