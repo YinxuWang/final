@@ -1,6 +1,4 @@
-# final
-
-This project was generated with the [Angular Full-Stack Generator](https://github.com/DaftMonk/generator-angular-fullstack) version 4.1.0.
+# Luoke Lock Web & Server
 
 ## Getting Started
 
@@ -9,7 +7,7 @@ This project was generated with the [Angular Full-Stack Generator](https://githu
 - [Git](https://git-scm.com/)
 - [Node.js and npm](nodejs.org) Node >= 4.x.x, npm >= 2.x.x
 - [Gulp](http://gulpjs.com/) (`npm install --global gulp`)
-- [SQLite](https://www.sqlite.org/quickstart.html)
+- [Mysql 5.5](http://dev.mysql.com/downloads/mysql/5.5.html#downloads)
 
 ### Developing
 
@@ -17,10 +15,8 @@ This project was generated with the [Angular Full-Stack Generator](https://githu
 
 2. Run `gulp serve` to start the development server. It should automatically open the client in your browser when ready.
 
+#### Config your data source connection in ${appPath}/server/config/environment/\[development|production|shared\].js before start app 
+
 ## Build & development
 
 Run `gulp build` for building and `gulp serve` for preview.
-
-## Testing
-
-Running `npm test` will run the unit tests with karma.
