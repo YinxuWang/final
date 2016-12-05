@@ -27,7 +27,7 @@ export default class AdminLoginController {
         password: this.user.password
       })
         .then(() => {
-          this.$state.go('admin.company');
+          this.$state.go('admin.company.list');
         })
         .catch(err => {
           this.errors.login = err.message;

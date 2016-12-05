@@ -1,19 +1,24 @@
-/**
- * Sequelize initialization module
- */
-
 'use strict';
 
-import path from 'path';
 import config from '../config/environment';
 import Sequelize from 'sequelize';
 
-var db = {
-  Sequelize,
-  sequelize: new Sequelize(config.sequelize.db, config.sequelize.user, config.sequelize.password, config.sequelize.options)
-};
+var db = {};
+var sequelize = new Sequelize(config.sequelize.db, config.sequelize.user, config.sequelize.password, config.sequelize.options);
 
 // Insert models below
-db.User = db.sequelize.import('../api/user/user.model');
+db.Company = sequelize.import('../api/company/company.model');
+db.User = sequelize.import('../api/user/user.model');
+db.Role = sequelize.import('../api/role/role.model');
+
+// Associate Tables
+Object.keys(db).forEach(function (modelName) {
+  if (db[modelName].associate) {
+    db[modelName].associate(db);
+  }
+});
+
+db.sequelize = sequelize;
+db.Sequelize = Sequelize;
 
 module.exports = db;

@@ -1,8 +1,10 @@
-'use strict';
+"use strict";
 
 import angular from 'angular';
-import AdminCompanyController from './company.controller';
+import AdminCompanyAuditController from './audit/audit.controller';
+import AdminCompanyListController from './list/list.controller';
 
 export default angular.module('app.admin.company', [])
-  .controller('AdminCompanyController', AdminCompanyController)
+  .controller('AdminCompanyListController', AdminCompanyListController)
+  .controller('AdminCompanyAuditController', AdminCompanyAuditController)
   .name;

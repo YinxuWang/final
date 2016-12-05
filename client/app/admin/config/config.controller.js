@@ -1,5 +1,5 @@
 "use strict";
 
 export default class AdminConfigController {
-  title = "config"
+  title = "运行配置";
 }

@@ -4,7 +4,6 @@ export default function routes($stateProvider) {
   'ngInject';
 
   $stateProvider
-
     .state('admin', {
       url: '/admin',
       template: '<ui-view></ui-view>',
@@ -12,8 +11,20 @@ export default function routes($stateProvider) {
     })
     .state('admin.company', {
       url: '/company',
-      template: require('./company/company.html'),
-      controller: "AdminCompanyController",
+      template: "<ui-view></ui-view>",
+      authenticate: "admin"
+    })
+    .state('admin.company.audit', {
+      url: '/audit',
+      template: require("./company/audit/audit.html"),
+      controller: "AdminCompanyAuditController",
+      controllerAs: "vm",
+      authenticate: "admin"
+    })
+    .state('admin.company.list', {
+      url: '/list',
+      template: require("./company/list/list.html"),
+      controller: "AdminCompanyListController",
       controllerAs: "vm",
       authenticate: "admin"
     })
@@ -38,11 +49,11 @@ export default function routes($stateProvider) {
       controllerAs: "vm",
       authenticate: "admin"
     })
-    .state('admin.role',{
-      url:'/role',
-      template:require("./role/role.html"),
-      controller:"AdminRoleController",
-      controllerAs:"vm",
+    .state('admin.role', {
+      url: '/role',
+      template: require("./role/role.html"),
+      controller: "AdminRoleController",
+      controllerAs: "vm",
       authenticate: "admin"
     })
     .state('logout', {

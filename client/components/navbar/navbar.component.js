@@ -6,7 +6,7 @@ import angular from 'angular';
 export class NavbarComponent {
   menu = [{
     title: '公司管理',
-    state: 'admin.company'
+    state: 'admin.company.list'
   },
     {
       title: "用户管理",

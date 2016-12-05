@@ -1,6 +1,8 @@
 'use strict';
 
 import {User} from '../../sqldb';
+import {Company} from '../../sqldb';
+import {Role} from '../../sqldb';
 import config from '../../config/environment';
 import jwt from 'jsonwebtoken';
 
@@ -24,12 +26,8 @@ function handleError(res, statusCode) {
  */
 export function index(req, res) {
   return User.findAll({
-    attributes: [
-      '_id',
-      'name',
-      'email',
-      'role'
-    ]
+    attributes: ['id', 'name', 'phone', 'mail'],
+    include: [{model: Company, attributes: ['seq', 'name']}, {model: Role, attributes: ['name', 'id']}]
   })
     .then(users => {
       res.status(200).json(users);

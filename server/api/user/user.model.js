@@ -6,70 +6,26 @@ import * as utils from '../../components/utils';
 export default function (sequelize, DataTypes) {
   var User = sequelize.define('User',
     {
-      _seq: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        primaryKey: true,
-        autoIncrement: true,
-        field: "seq"
-      },
-      id: {
-        type: DataTypes.CHAR(12),
-        allowNull: false,
-        field: 'user_id'
-      },
-      phone: {
-        type: DataTypes.CHAR(11),
-        defaultValue: "",
-        field: 'user_phone',
-      },
-      mail: {
-        type: DataTypes.STRING(45),
-        defaultValue: "",
-        field: 'user_mail'
-      },
-      password: {
-        type: DataTypes.STRING(32),
-        field: 'user_pw',
-        allowNull: false
-      },
-      name: {
-        type: DataTypes.STRING(45),
-        field: 'user_name'
-      },
-      status: {
-        type: DataTypes.INTEGER(3),
-        field: 'user_status',
-        defaultValue: 2
-      },
-      role: {
-        type: DataTypes.INTEGER(6),
-        field: 'user_role',
-        allowNull: false
-      },
-      logCount: {
-        type: DataTypes.INTEGER,
-        defaultValue: 0,
-        field: 'user_log_count'
-      },
-      logTime: {
-        type: DataTypes.DATE,
-        defaultValue: DataTypes.NOW,
-        field: 'user_log_time'
-      },
-      LogWhere: {
-        type: DataTypes.INTEGER(4),
-        field: 'user_log_where',
-        defaultValue: 1
-      },
-      idCard: {
-        type: DataTypes.STRING(16),
-        field: 'user_id_card',
-        defaultVale: ""
-      }
+      seq: {type: DataTypes.INTEGER, allowNull: false, primaryKey: true, autoIncrement: true, field: "seq"},
+      id: {type: DataTypes.CHAR(12), allowNull: false, field: 'user_id'},
+      phone: {type: DataTypes.CHAR(11), defaultValue: "", field: 'user_phone'},
+      mail: {type: DataTypes.STRING(45), defaultValue: "", field: 'user_mail'},
+      password: {type: DataTypes.STRING(32), field: 'user_pw', allowNull: false},
+      name: {type: DataTypes.STRING(45), field: 'user_name'},
+      status: {type: DataTypes.INTEGER(3), field: 'user_status', defaultValue: 2},
+      logCount: {type: DataTypes.INTEGER, defaultValue: 0, field: 'user_log_count'},
+      logTime: {type: DataTypes.DATE, defaultValue: DataTypes.NOW, field: 'user_log_time'},
+      LogWhere: {type: DataTypes.INTEGER(4), field: 'user_log_where', defaultValue: 1},
+      idCard: {type: DataTypes.STRING(16), field: 'user_id_card', defaultVale: ""}
     },
     {
       tableName: 'userinfo',
+      classMethods: {
+        associate: function (db) {
+          User.belongsTo(db.Company, {foreignKey: 'company', constraints: false});
+          User.belongsTo(db.Role, {foreignKey: 'role', targetKey: 'id', constraints: false})
+        }
+      },
       getterMethods: {
         profile(){
           return {

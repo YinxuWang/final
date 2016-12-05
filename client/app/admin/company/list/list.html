@@ -1,4 +1,4 @@
-<div class="m-admin-company">
+<div class="m-admin-company-list">
   <!--search section-->
   <section class="row">
     <div class="col-md-12 form-horizontal form-group">
@@ -8,7 +8,7 @@
       </div>
       <label for="_reviewStatus" class="control-label fl">审核状态:</label>
       <div class="col-md-2">
-        <select id="_reviewStatus" class="form-control" ng-model="vm.searchParams.reviewStatus">
+        <select id="_reviewStatus" class="form-control" ng-model="vm.searchParams.auditStatus">
           <option value="">全部</option>
           <option value="0">待审核</option>
           <option value="1">审核通过</option>
@@ -18,11 +18,13 @@
       <div class="col-md-3 pr-5">
         <label for="_dateRangeStart" class="control-label fl mr-3">申请时间:</label>
         <div class="input-group">
-          <input type="text" class="form-control" uib-datepicker-popup="{{format1}}" ng-model="dt"
-                 is-open="vm.popup1.opened" datepicker-options="dateOptions" ng-required="true" close-text="关闭"
+          <input type="text" class="form-control" uib-datepicker-popup="{{format1}}"
+                 ng-model="vm.searchParams.applyDateStart"
+                 is-open="vm.datePickerConfig.start.opened" datepicker-options="vm.datePickerConfig.start.options"
+                 ng-required="true" close-text="关闭"
                  alt-input-formats="altInputFormats" id="_dateRangeStart"/>
           <span class="input-group-btn">
-            <button type="button" class="btn btn-default" ng-click="vm.open1()">
+            <button type="button" class="btn btn-default" ng-click="vm.datePickerConfig.start.open()">
               <i class="glyphicon glyphicon-calendar"></i>
             </button>
         </span>
@@ -32,23 +34,25 @@
       <div class="col-md-3 pl-3">
         <label for="_dateRangeEnd" class="control-label fl mr-5">--</label>
         <div class="input-group">
-          <input type="text" class="form-control" uib-datepicker-popup="{{format2}}" ng-model="dt"
-                 is-open="vm.popup2.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close"
+          <input type="text" class="form-control" uib-datepicker-popup="{{format1}}"
+                 ng-model="vm.searchParams.applyDateEnd"
+                 is-open="vm.datePickerConfig.end.opened" datepicker-options="vm.datePickerConfig.end.options"
+                 ng-required="true" close-text="关闭"
                  alt-input-formats="altInputFormats" id="_dateRangeEnd"/>
           <span class="input-group-btn">
-            <button type="button" class="btn btn-default" ng-click="vm.open2()">
+            <button type="button" class="btn btn-default" ng-click="vm.datePickerConfig.end.open()">
               <i class="glyphicon glyphicon-calendar"></i>
             </button>
           </span>
         </div>
       </div>
-      <div class="btn btn-default pull-right">查找</div>
+      <div class="btn btn-default pull-right" ng-click="vm.getPage()">查找</div>
     </div>
   </section>
   <!--grid section-->
   <section class="row">
     <div class="col-md-12">
-      <div ui-grid="vm.gridConfig" class="grid"></div>
+      <div ui-grid="vm.gridConfig" class="grid" ui-grid-pagination></div>
     </div>
   </section>
 </div>

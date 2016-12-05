@@ -1,11 +1,11 @@
-import {Company} from '../../sqldb';
+import {Role} from '../../sqldb';
 import * as RespError from '../../components/respError';
 
-export function audit(req, res, next) {
-  return Company.findAll(
+export function index(req, res, next) {
+  return Role.findAll(
     {
       attributes: [
-        'seq', 'name', 'nickname', 'status', 'created_at', 'manager'
+        'id', 'name'
       ]
     })
     .then(roles=> {
@@ -13,3 +13,4 @@ export function audit(req, res, next) {
     })
     .catch(RespError.handleError(res))
 }
+

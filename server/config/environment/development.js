@@ -13,12 +13,14 @@ module.exports = {
     options: {
       define: {
         underscored: true,
-        timestamps: false
+        timestamps: false,
+        charset: 'utf8',
+        collate: 'utf8_general_ci',
       }
     }
   },
 
   // Seed database on startup
-  seedDB: true,
+  seedDB: false,
 
 };
