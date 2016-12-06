@@ -18,17 +18,21 @@ import {
   routeConfig
 } from './app.config';
 
+// Components
 import _Auth from '../components/auth/auth.module';
-import admin from './admin';
 import navbar from '../components/navbar/navbar.component';
 import footer from '../components/footer/footer.component';
 import constants from './app.constants';
 import util from '../components/util/util.module';
 import sao from '../components/sao';
 
+// Modules
+import admin from './admin';
+import account from './account';
+
 import './app.scss';
 
-angular.module('app', [ngCookies, ngResource, ngSanitize, uiRouter, _Auth, admin, sao,
+angular.module('app', [ngCookies, ngResource, ngSanitize, uiRouter, _Auth, admin, sao, account,
   navbar, footer, constants, util, uiBootstrap, 'ui.grid', 'ui.grid.pagination', 'ui.grid.selection'
 ])
   .config(routeConfig)
@@ -39,7 +43,7 @@ angular.module('app', [ngCookies, ngResource, ngSanitize, uiRouter, _Auth, admin
     $rootScope.$on('$stateChangeStart', function (event, next) {
       Auth.isLoggedIn(function (loggedIn) {
         if (next.authenticate && !loggedIn) {
-          $location.path('/login');
+          $location.path('/admin/login');
         }
       });
     });

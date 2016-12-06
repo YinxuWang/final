@@ -5,7 +5,7 @@ export function routerDecorator($rootScope, $state, Auth) {
   // Redirect to login if route requires auth and the user is not logged in, or doesn't have required role
 
   $rootScope.$on('$stateChangeStart', function(event, next) {
-    console.log("dddddddddd");
+    debugger;
     if(!next.authenticate) {
       return;
     }
@@ -20,7 +20,7 @@ export function routerDecorator($rootScope, $state, Auth) {
           event.preventDefault();
           return Auth.isLoggedIn()
             .then(is => {
-              $state.go(is ? 'main' : 'login');
+              $state.go(is ? 'main' : 'admin.login');
             });
         });
     } else {
@@ -32,7 +32,7 @@ export function routerDecorator($rootScope, $state, Auth) {
 
           event.preventDefault();
 
-          $state.go('login');
+          $state.go('admin.login');
         });
     }
   });
