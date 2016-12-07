@@ -1,0 +1,36 @@
+<div class="col-md-6 col-md-offset-3 m-company-structure">
+  <div class="panel panel-default">
+    <!-- Default panel contents -->
+    <div class="panel-heading"><h5>机构设置</h5></div>
+    <!-- Table -->
+    <table class="table">
+      <tr>
+        <th></th>
+        <th>机构名称</th>
+        <th>负责人职位</th>
+      </tr>
+      <tr>
+        <td>一级</td>
+        <td><input type="text" ng-model="vm.structure.level1.name"/></td>
+        <td><input type="text" ng-model="vm.structure.level1.position"/></td>
+      </tr>
+      <tr>
+        <td>二级</td>
+        <td><input type="text" ng-model="vm.structure.level2.name"/></td>
+        <td><input type="text" ng-model="vm.structure.level2.position"/></td>
+      </tr>
+      <tr>
+        <td>三级</td>
+        <td><input type="text" ng-model="vm.structure.level3.name"/></td>
+        <td><input type="text" ng-model="vm.structure.level3.position"/></td>
+      </tr>
+    </table>
+
+    <div class="panel-footer ">
+      <div class="btn btn-primary pull-right mr-3" ng-click="vm.save()">保存</div>
+      <div class="btn btn-info pull-right mr-10" ng-click="vm.loadTemplate()">读取架构模板</div>
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</div>
+
