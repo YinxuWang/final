@@ -29,10 +29,11 @@ import sao from '../components/sao';
 // Modules
 import admin from './admin';
 import account from './account';
+import company from  './company';
 
 import './app.scss';
 
-angular.module('app', [ngCookies, ngResource, ngSanitize, uiRouter, _Auth, admin, sao, account,
+angular.module('app', [ngCookies, ngResource, ngSanitize, uiRouter, _Auth, admin, sao, account, company,
   navbar, footer, constants, util, uiBootstrap, 'ui.grid', 'ui.grid.pagination', 'ui.grid.selection'
 ])
   .config(routeConfig)

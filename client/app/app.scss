@@ -24,11 +24,11 @@ $fa-font-path: '/assets/fonts/font-awesome/';
 
 @import 'admin/company/audit/audit';
 
-@import 'admin/company/company';
-
 @import 'admin/company/list/list';
 
 @import 'admin/login/login';
+
+@import 'company/structure/structure';
 
 @import 'style/bootstrap';
 
