@@ -35,7 +35,6 @@ export default class AdminUserController {
         vm.getPage();
       });
     };
-
     vm.roleList = vm.Role.query();
     vm.getPage();
   }
@@ -46,3 +45,4 @@ export default class AdminUserController {
     this.gridConfig.totalItems = userList.length;
   }
 }
+

@@ -9,7 +9,7 @@ module.exports = {
   sequelize: {
     db: 'luokelock_dev',
     user: 'root',
-    password: "123456",
+    password: "1",
     options: {
       define: {
         underscored: true,
@@ -21,6 +21,6 @@ module.exports = {
   },
 
   // Seed database on startup
-  seedDB: false,
+  seedDB: true,
 
 };

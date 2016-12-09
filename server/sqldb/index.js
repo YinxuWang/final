@@ -10,6 +10,7 @@ var sequelize = new Sequelize(config.sequelize.db, config.sequelize.user, config
 db.Company = sequelize.import('../api/company/company.model');
 db.User = sequelize.import('../api/user/user.model');
 db.Role = sequelize.import('../api/role/role.model');
+db.Room = sequelize.import('../api/room/room.model');
 
 // Associate Tables
 Object.keys(db).forEach(function (modelName) {
