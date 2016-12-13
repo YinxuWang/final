@@ -10,3 +10,4 @@ var router = new Router();
 router.get('/', auth.hasRole(ROLE.SUPER_ADMIN), controller.index);
 
 module.exports = router;
+1

@@ -6,8 +6,8 @@ import * as utils from '../../components/utils';
 export default function (sequelize, DataTypes) {
   var User = sequelize.define('User',
     {
-      seq: {type: DataTypes.INTEGER, allowNull: false,  autoIncrement: true, field: "seq"},
-      id: {type: DataTypes.CHAR(12), allowNull: false, primaryKey: true, field: 'user_id'},
+      seq: {type: DataTypes.INTEGER, allowNull: false, primaryKey: true, autoIncrement: true, field: "seq"},
+      id: {type: DataTypes.CHAR(12), allowNull: false,field: 'user_id'},
       phone: {type: DataTypes.CHAR(11), defaultValue: "", field: 'user_phone'},
       mail: {type: DataTypes.STRING(45), defaultValue: "", field: 'user_mail'},
       password: {type: DataTypes.STRING(32), field: 'user_pw', allowNull: false},

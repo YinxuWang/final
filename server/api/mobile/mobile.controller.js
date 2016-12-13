@@ -30,6 +30,7 @@ function handleError(res, statusCode) {
  * here, for now, we do not take the case that a lock/manager is also a renter into consideration.
  * Parameters needed:
  * senderUserID: the app user's ID
+ * //done
  */
 export function mobileRoomIndex(info, res) {
 
@@ -43,7 +44,7 @@ export function mobileRoomIndex(info, res) {
   let roomLockType_E;
   let roomLockMngPw;
   let senderUserID = info.senderUserID;
-  let receiverUserID;
+
 
 
   UserRoom.findAll({
@@ -104,7 +105,7 @@ export function mobileRoomIndex(info, res) {
     retInfo.push(retValue);
   }
 
-  resRouter('nRoomListAsk',senderUserID, receiverUserID, retInfo, res);
+  resRouter('nRoomListAsk',senderUserID, null, retInfo, res);
 }
 
 
@@ -122,6 +123,7 @@ export function mobileRoomIndex(info, res) {
  * lock_btmac:
  * lock_mngpw:
  * lock_room:
+ * done
  */
 export function bindRoomLock(info, res)
 {
@@ -195,7 +197,7 @@ export function lockOpenRec(info,res) {
 
 
 /**
- * send the mobile app (lock_manager) the list of room/lock and its user.
+ * send the mobile app (lock_manager) the list of room/lock and its user (renter).
  * Brief:
  * lock_manager asks for a list of users who using room/lock,
  * server respond with the information.
@@ -206,23 +208,45 @@ export function getLockUserList(info, res) {
 
   //check its role first
 
+  let retInfo = {};
+  let managedRooms = [];
   User.findall({
     where:{
       id : info.senderUser_ID
     }
   }).then(theUser=> {
       if (!theUser) {
-        console.log("The User" + "info.senderUser_ID" + "cannot be found in database.");
+        console.log("The User %s cannot be found in database.", info.senderUser_ID);
         return res.status(404).end();
       }
       //check if the user is lock_manager
       if (theUser.role != 2) {
-        console.log("The User" + "info.senderUser_ID" + "is not lock manager.");
+        console.log("The User %s is not lock manager.", info.senderUser_ID);
         return res.status(404).end();
       }
     }
   ).catch(err => next(err));
 
+  UserRoom.findall({
+    attribute:['ur_room_seq'],
+    where: {
+      ur_user_seq: info.senderUser_ID
+    }
+  }).then(theUserRooms=>{
+    managedRooms = theUserRooms;
+  }).catch(err => next(err));
+
+  for (let roomseq in managedRooms){
+    UserRoom.findall({
+      attribute:['ur_room_seq'],
+      where: {
+        ur_user_seq: info.senderUser_ID
+      }
+    }).then(theUserRooms=>{
+      managedRooms = theUserRooms;
+    }).catch(err => next(err));
+
+  }
 
 }
 

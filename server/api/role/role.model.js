@@ -1,7 +1,7 @@
 "use strict";
 
 export default function (sequelize, DataTypes) {
-  var Role = sequelize.define('Role',
+  let Role = sequelize.define('Role',
     {
       seq: {type: DataTypes.INTEGER, allowNull: false, primaryKey: true, autoIncrement: true},
       id: {type: DataTypes.INTEGER, field: "role_id", allowNull: false},
