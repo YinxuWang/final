@@ -6,6 +6,7 @@
 
 import errors from './components/errors';
 import path from 'path';
+import {reqRouter} from "./api/mobile/index";
 
 export default function (app) {
   // Insert routes below
@@ -14,6 +15,7 @@ export default function (app) {
   app.use('/api/company', require('./api/company'));
   app.use('/api/room', require('./api/room'));
   app.use('/auth', require('./auth').default);
+
 
   // All undefined asset or api routes should return a 404
   app.route('/:url(api|auth|components|app|bower_components|assets)/*')

@@ -39,12 +39,13 @@ export function index(req, res) {
  * Creates a new user
  */
 export function create(req, res) {
-  var newUser = User.build(req.body);
+
+  let newUser = User.build(req.body);
   newUser.setDataValue('provider', 'local');
   newUser.setDataValue('role', 'user');
   return newUser.save()
     .then(function (user) {
-      var token = jwt.sign({_id: user._id}, config.secrets.session, {
+      let token = jwt.sign({_id: user._id}, config.secrets.session, {
         expiresIn: 60 * 60 * 5
       });
       res.json({token});

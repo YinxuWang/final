@@ -1,4 +1,4 @@
-'use strict';
+'use strict'
 
 
 
@@ -20,6 +20,7 @@
 
 export function reqRouter (req, res)
 {
+  res.send("here you go");
   let reqData;
   let NetCmd;
   let User_ID;
@@ -119,7 +120,7 @@ export function reqRouter (req, res)
   }
 
 
-
+ return 0;
 }
 /**
  * Brief:
