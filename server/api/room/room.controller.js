@@ -3,9 +3,8 @@
 import {User} from '../../sqldb';
 import {Company} from '../../sqldb';
 import {Role} from '../../sqldb';
-import config from '../../config/environment';
 import {Room} from '../../sqldb';
-import jwt from 'jsonwebtoken';
+
 
 function validationError(res, statusCode) {
   statusCode = statusCode || 422;
@@ -29,38 +28,80 @@ function handleError(res, statusCode) {
  */
 export function index(req, res) {
   return Room.findAll({
-    attributes: ['room_name', 'room_address', 'room_model', 'room_floor', 'room_mgnr_seq']
+    attributes: ['room_name', 'group_seq', 'room_address', 'room_model', 'room_floor', 'room_mgnr_seq']
   })
     .then(theRoom => {
-      res.status(200).json(theRoom);
+
     })
     .catch(handleError(res));
 }
 
 /**
  * Creates a new room
+ * Brief：
+ * web side requests creating a new room in db Room. If a room_manager /
+ * presents in request body, create an entry in db UserRoom.
+ * Parameters needed:
+ * room_name:
+ * room_address:
+ * room_model:
+ * area:
+ * floor:
+ * room_group_seq:
+ * room_manager_name: the one who is in charge of the room and with rights to bind lock /
+ * edit room info, send the lock key, etc, who is the very lock manager. This /
+ * parameter for now is mandatory and should be optional for later version.
+ *
  */
 export function create(req, res) {
-  var newRoom = Room.build(req.body);
-  newRoom.setDataValue('provider', 'local');
-  newRoom.setDataValue('role', 'user');
-  return newRoom.save()
-    .then(function (user) {
-      var token = jwt.sign({_id: user._id}, config.secrets.session, {
-        expiresIn: 60 * 60 * 5
-      });
-      res.json({token});
+  let reqInfo = req.body;
+  let roomSeq;
+
+  if(req.body.room_manager_name) {
+    delete reqInfo.room_manager;
+  }
+
+  let newRoom = Room.build(reqInfo)
+    .save()
+    .then(function (theRoom) {
+      roomSeq = theRoom.seq;
     })
     .catch(validationError(res));
+
+  if(req.body.room_manager_name)
+  {
+    let newUrRoom = {};
+    newUrRoom.ur_room_seq = roomSeq;
+
+    User.findall({
+      where: {
+        name:req.body.room_manager_name
+      }
+    })
+      .then(theUser => {
+        if (!theUser) {
+          console.log("Create Room: cannot find the user (lock manager) named as " + "req.body.room_manager_name" + ".");
+          return res.status(404).end();
+        }
+        newUrRoom.ur_user_seq = theUser.seq;
+      })
+      .catch(err => next(err));
+
+    newUrRoom.ur_user_type = 2; //user type is type lock manager
+    newUrRoom.ur_user_status = 0; //status active
+
+    UserRoom.build(newUrRoom).save().then().catch(validationError(res));
+    console.log("The room is created and a room/lock manager is added successfully.");
+  }
 }
 
 /**
- * Get a room via room seq?
+ * Get a room info via room seq?
  */
 export function show(req, res, next) {
   let roomSeq = req.params.seq;
 
-  return Room.find({
+  return Room.findall({
     where: {
       seq: roomSeq
     }
@@ -109,36 +150,3 @@ export function changeRoomInfo(req, res) {
 
 }
 
-/**
- * Get my info
- */
-export function me(req, res, next) {
-  var userId = req.user.id;
-
-  return User.find({
-    where: {
-      id: userId
-    },
-    attributes: [
-      'id',
-      'name',
-      'role',
-      'phone',
-      'mail'
-    ]
-  })
-    .then(user => { // don't ever give out the password or salt
-      if (!user) {
-        return res.status(401).end();
-      }
-      res.json(user);
-    })
-    .catch(err => next(err));
-}
-
-/**
- * Authentication callback
- */
-export function authCallback(req, res) {
-  res.redirect('/');
-}
