@@ -4,7 +4,7 @@ import crypto from 'crypto';
 import * as utils from '../../components/utils';
 
 export default function (sequelize, DataTypes) {
-  var User = sequelize.define('User',
+  let User = sequelize.define('User',
     {
       seq: {type: DataTypes.INTEGER, allowNull: false, primaryKey: true, autoIncrement: true, field: "seq"},
       id: {type: DataTypes.CHAR(12), allowNull: false,field: 'user_id'},

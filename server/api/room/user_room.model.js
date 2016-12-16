@@ -11,6 +11,7 @@ export default function (sequelize, DataTypes) {
 
       //ur_lock_company: {type: DataTypes.CHAR(20), defaultValue: "", field: 'room_model'},
       ur_user_type: {type: DataTypes.INTEGER, field: 'ur_room_usertype', allowNull: false},
+      // status : 0-冻结， 1-解冻， 2-删除，3-授权，4-取消授权，5-改名
       ur_user_status: {type: DataTypes.INTEGER, field: 'ur_room_userstatus'},
       ur_createtime: {type: DataTypes.DATE, defaultValue: DataTypes.NOW, field: 'ur_room_createtime'},
       ur_key_type: {type: DataTypes.INTEGER, defaultValue: 1, field: 'ur_room_key_type'},
@@ -30,16 +31,7 @@ export default function (sequelize, DataTypes) {
           UserRoom.belongsTo(db.Company, {foreignKey: 'ur_lock_company', constraints: false});
         }
       },
-      getterMethods: {
-        profile(){
-          return {
-            room_name : this.room_name,
-            room_address : this.room_address,
-            room_model : this.room_model,
-            room_lock_seq : this.room_lock_seq
-          }
-        },
-      },
+      getterMethods: {},
       hooks: {},
       instanceMethods: {}
     });

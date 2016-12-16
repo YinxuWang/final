@@ -13,7 +13,7 @@ db.Role = sequelize.import('../api/role/role.model');
 db.Room = sequelize.import('../api/room/room.model');
 db.Lock = sequelize.import('../api/lock/lock.model');
 db.UserRoom = sequelize.import('../api/room/user_room.model');
-
+db.OpenInfo = sequelize.import('../api/room/openinfo.model');
 // Associate Tables
 Object.keys(db).forEach(function (modelName) {
   if (db[modelName].associate) {

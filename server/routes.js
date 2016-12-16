@@ -7,6 +7,8 @@
 import errors from './components/errors';
 import path from 'path';
 import {reqRouter} from "./api/mobile/index";
+let bodyParser = require('body-parser');
+let textParser = bodyParser.text();
 
 export default function (app) {
   // Insert routes below
@@ -15,6 +17,8 @@ export default function (app) {
   app.use('/api/company', require('./api/company'));
   app.use('/api/room', require('./api/room'));
   app.use('/auth', require('./auth').default);
+  app.post('/api/mobile', textParser, reqRouter);
+
 
 
   // All undefined asset or api routes should return a 404

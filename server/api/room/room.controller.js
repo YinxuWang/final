@@ -4,6 +4,7 @@ import {User} from '../../sqldb';
 import {Company} from '../../sqldb';
 import {Role} from '../../sqldb';
 import {Room} from '../../sqldb';
+import {UserRoom} from '../../sqldb';
 
 
 function validationError(res, statusCode) {
@@ -37,7 +38,7 @@ export function index(req, res) {
 }
 
 /**
- * Creates a new room
+ * Creates a new room. (Only web-side user can use this function)
  * Brief：
  * web side requests creating a new room in db Room. If a room_manager /
  * presents in request body, create an entry in db UserRoom.
@@ -129,24 +130,55 @@ export function destroy(req, res) {
 
 /**
  * Change a room's by referring to room_seq
+ * brief:
+ * web side user requests to change room info, if a room_manager/
+ * presents, which means a new lock/room manager substitutes /
+ * the old one. server should changes the ur_user_status in db UserRoom,/
+ * and create a new entry in db UserRoom for new room manager.
+ * parameters needed: (for the parameters unmodified, just remain the same)/
+ * room_name:
+ * room_address:
+ * room_model:
+ * room_floor:
+ * room_area:
+ * room_lock_seq:
+ * room_group_seq:
+ * room_manager_name: ?
+ * room_manager_seq:
+ * room_company:
+ * TODO optimize update operation?
  */
-export function changeRoomInfo(req, res) {
+export function webChangeRoomInfo(req, res) {
 
-  let theRoom = Room.find({
-
+  Room.update({
+    room_name : req.body.room_name,
+    room_address: req.body.room_address,
+    room_model : req.body.room_model,
+    room_floor : req.body.room_floor,
+    room_area : req.body.room_area,
+    room_lock_seq : req.body.room_lock_seq,
+    room_group_seq : req.body.room_group_seq,
+  },{
     where: {
-      seq : req.body.seq
+    seq : req.body.seq
     }
-
   });
 
-  theRoom.update({
-    room_name : req.body.roomName,
-    room_model : req.body.roomModel,
-    room_floor : req.body.roomFloor,
-    room_LockSeq : req.body.roomLockSeq,
-    room_group_seq : req.body.groupSeq,
-  }).then(function() {})
+  UserRoom.update({
+    ur_user_status : 2
+  },{
+    where: {
+      ur_user_seq : req.body.room_manager_seq,
+      ur_room_seq : req.body.room_seq
+    }
+  });
+
+  // create a new entry for new lock/room manager
+  let newUserRoom = {};
+  //UserRoom.build(newUrRoom).save().then().catch(validationError(res));
+
+
+  res.send();
 
 }
 

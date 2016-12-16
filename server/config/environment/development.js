@@ -9,7 +9,7 @@ module.exports = {
   sequelize: {
     db: 'luokelock_dev',
     user: 'root',
-    password: "1",
+    password: "123456",
     options: {
       define: {
         underscored: true,
